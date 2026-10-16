@@ -1,0 +1,147 @@
+<h2 id="s5-naming">5 命名</h2>
+<h3 id="s5.1-identifier-names">5.1 所有标识符的通用规则</h3>
+<p>标识符仅使用 ASCII 字母和数字，并且在下文提到的少数情况下可使用下划线。因此，每个有效的标识符名称都能匹配正则表达式
+<code>\w+</code>。</p>
+<p>在 Google 风格中，<strong>不</strong>使用特殊的前缀或后缀。例如，以下名称不符合 Google 风格：<code class="badcode">name_</code>、<code class="badcode">mName</code>、
+<code class="badcode">s_name</code> 和 <code class="badcode">kName</code>。</p>
+<h3 id="s5.2-specific-identifier-names">5.2 各类标识符的规则</h3>
+<h4 id="s5.2.1-package-names">5.2.1 包名和模块名</h4>
+<p>包名和模块名仅使用小写字母和数字（不使用下划线）。连续的单词直接拼接在一起。例如，<code>com.example.deepspace</code>，而不是
+<code class="badcode">com.example.deepSpace</code> 或
+<code class="badcode">com.example.deep_space</code>。</p>
+<h4 id="s5.2.2-class-names">5.2.2 类名</h4>
+<p>类名以 <a href="#s5.3-camel-case">UpperCamelCase</a> 形式编写。</p>
+<p>类名通常是名词或名词短语。例如，
+<code class="prettyprint lang-java">Character</code> 或
+<code class="prettyprint lang-java">ImmutableList</code>。接口名称也可以是名词或名词短语（例如，<code class="prettyprint lang-java">List</code>），但有时也可以是形容词或形容词短语（例如，
+<code class="prettyprint lang-java">Readable</code>）。</p>
+<p>对于注解类型的命名，没有特定的规则，甚至也没有公认的惯例。</p>
+<p><em>测试</em>类的名称以 <code class="prettyprint lang-java">Test</code> 结尾，例如 <code class="prettyprint lang-java">HashIntegrationTest</code>。
+如果它覆盖单个类，则其名称为该类的名称加上 <code class="prettyprint lang-java">Test</code>，例如 <code class="prettyprint lang-java">HashImplTest</code>。</p>
+<h4 id="s5.2.3-method-names">5.2.3 方法名</h4>
+<p>方法名以 <a href="#s5.3-camel-case">lowerCamelCase</a> 形式编写。</p>
+<p>方法名通常是动词或动词短语。例如，
+<code class="prettyprint lang-java">sendMessage</code> 或
+<code class="prettyprint lang-java">stop</code>。</p>
+<p>JUnit <em>测试</em>方法名中可以出现下划线，用于分隔名称的逻辑组成部分，其中<em>每个</em>部分都以 <a href="#s5.3-camel-case">lowerCamelCase</a> 形式编写，例如 <code class="prettyprint lang-java">transferMoney_deductsFromSource</code>。测试方法的命名没有唯一正确的方式。</p>
+<a id="constants"></a>
+<h4 id="s5.2.4-constant-names">5.2.4 常量名</h4>
+<p>常量名使用 <code class="prettyprint lang-java">UPPER_SNAKE_CASE</code>：全部使用大写字母，每个单词与下一个单词之间用单个下划线分隔。但究竟什么<em>是</em>常量？</p>
+<p>常量是 static final 字段，其内容是深度不可变的，并且其方法没有可检测到的副作用。这包括基本类型、字符串、不可变值类，以及任何被设为 <code>null</code> 的内容。如果实例的任何可观察状态可能发生改变，那它就不是常量。仅仅<em>打算</em>永不改变该对象是不够的。例如：</p>
+<pre class="prettyprint lang-java">// Constants
+static final int NUMBER = 5;
+static final ImmutableList&lt;String&gt; NAMES = ImmutableList.of("Ed", "Ann");
+static final Map&lt;String, Integer&gt; AGES = ImmutableMap.of("Ed", 35, "Ann", 32);
+static final Joiner COMMA_JOINER = Joiner.on(','); // because Joiner is immutable
+static final SomeMutableType[] EMPTY_ARRAY = {};
+
+// Not constants
+static String nonFinal = "non-final";
+final String nonStatic = "non-static";
+static final Set&lt;String&gt; mutableCollection = new HashSet&lt;String&gt;();
+static final ImmutableSet&lt;SomeMutableType&gt; mutableElements = ImmutableSet.of(mutable);
+static final ImmutableMap&lt;String, SomeMutableType&gt; mutableValues =
+    ImmutableMap.of("Ed", mutableInstance, "Ann", mutableInstance2);
+static final Logger logger = Logger.getLogger(MyClass.getName());
+static final String[] nonEmptyArray = {"these", "can", "change"};
+</pre>
+<p>这些名称通常是名词或名词短语。</p>
+<h4 id="s5.2.5-non-constant-field-names">5.2.5 非常量字段名</h4>
+<p>非常量字段名（无论是静态还是非静态）均以 <a href="#s5.3-camel-case">lowerCamelCase</a> 形式编写。</p>
+<p>这些名称通常是名词或名词短语。例如，
+<code class="prettyprint lang-java">computedValues</code> 或
+<code class="prettyprint lang-java">index</code>。</p>
+<h4 id="s5.2.6-parameter-names">5.2.6 参数名</h4>
+<p>参数名以 <a href="#s5.3-camel-case">lowerCamelCase</a> 形式编写。</p>
+<p>在公共方法中应避免使用单字符参数名。</p>
+<h4 id="s5.2.7-local-variable-names">5.2.7 局部变量名</h4>
+<p>局部变量名以 <a href="#s5.3-camel-case">lowerCamelCase</a> 形式编写。</p>
+<p>即使局部变量是 final 且不可变的，也不将其视为常量，不应按常量的风格命名。</p>
+<h4 id="s5.2.8-type-variable-names">5.2.8 类型变量名</h4>
+<p>每个类型变量均按以下两种风格之一命名：</p>
+<ul>
+<li>单个大写字母，后面可选跟单个数字（例如
+  <code class="prettyprint lang-java">E</code>、<code class="prettyprint lang-java">T</code>、
+  <code class="prettyprint lang-java">X</code>、<code class="prettyprint lang-java">T2</code>）
+  </li>
+<li>采用类名的形式（参见第 5.2.2 节
+  <a href="#s5.2.2-class-names">类名</a>），后面加上大写字母
+  <code class="prettyprint lang-java">T</code>（例如：
+  <code class="prettyprint lang-java">RequestT</code>、
+  <code class="prettyprint lang-java">FooBarT</code>）。</li>
+</ul>
+<h4 id="s5.2.9-unnamed-variables">5.2.9 未命名变量</h4>
+<p>凡是在适用的地方，均允许对未命名变量和参数使用 <code class="prettyprint lang-java">_</code> 语法。例如：</p>
+<pre class="prettyprint lang-java">Predicate&lt;String&gt; alwaysTrue = _ -&gt; true;
+</pre>
+<a id="acronyms"></a>
+<a id="camelcase"></a>
+<h3 id="s5.3-camel-case">5.3 驼峰命名法：定义</h3>
+<p>有时，将一个英语短语转换为驼峰命名法有不止一种合理的方式，例如当存在首字母缩略词或像 "IPv6" 或 "iOS" 这样不寻常的结构时。为了提高可预测性，Google 风格规定了以下（几乎）确定性的方案。</p>
+<p>从名称的普通文本形式开始：</p>
+<ol>
+<li>将短语转换为纯 ASCII 字符，并移除所有撇号。例如，"Müller's algorithm" 会变成 "Muellers algorithm"。</li>
+<li>将此结果划分为单词，按空格以及任何剩余的标点符号（通常是连字符）进行拆分。
+
+  <ul>
+<li><em>建议：</em>如果任何单词在日常使用中已经具有习惯性的驼峰外观，请将其拆分为组成部分（例如，"AdWords" 变成 "ad words"）。请注意，像 "iOS" 这样的词<em>本身</em>并不是真正的驼峰形式；它不符合<em>任何</em>惯例，因此本建议不适用。</li>
+</ul>
+</li>
+<li>现在将<em>所有内容</em>（包括首字母缩略词）转为小写，然后仅将以下部分的首字符转为大写：
+  <ul>
+<li>……每个单词，以生成<em>大驼峰式（upper camel case）</em>，或</li>
+<li>……除第一个单词外的每个单词，以生成<em>小驼峰式（lower camel case）</em></li>
+</ul>
+</li>
+<li>最后，将所有单词连接成一个标识符。请注意，原单词的大小写几乎完全被忽略。</li>
+</ol>
+<p>在极少数情况下（例如多段式版本号），你可能需要使用下划线来分隔相邻的数字，因为数字没有大小写变体。
+</p>
+<p>示例：</p>
+<table>
+<tbody><tr>
+<th>普通文本形式</th>
+<th>正确</th>
+<th>错误</th>
+</tr>
+<tr>
+<td>"XML HTTP request"</td>
+<td><code class="prettyprint lang-java">XmlHttpRequest</code></td>
+<td><code class="badcode">XMLHTTPRequest</code></td>
+</tr>
+<tr>
+<td>"new customer ID"</td>
+<td><code class="prettyprint lang-java">newCustomerId</code></td>
+<td><code class="badcode">newCustomerID</code></td>
+</tr>
+<tr>
+<td>"inner stopwatch"</td>
+<td><code class="prettyprint lang-java">innerStopwatch</code></td>
+<td><code class="badcode">innerStopWatch</code></td>
+</tr>
+<tr>
+<td>"supports IPv6 on iOS?"</td>
+<td><code class="prettyprint lang-java">supportsIpv6OnIos</code></td>
+<td><code class="badcode">supportsIPv6OnIOS</code></td>
+</tr>
+<tr>
+<td>"YouTube importer"</td>
+<td><code class="prettyprint lang-java">YouTubeImporter</code><br/>
+<code class="prettyprint lang-java">YoutubeImporter</code>*</td>
+<td></td>
+</tr>
+<tr>
+<td>"Turn on 2SV"</td>
+<td><code class="prettyprint lang-java">turnOn2sv</code></td>
+<td><code class="badcode">turnOn2Sv</code></td>
+</tr>
+<tr>
+<td>"Guava 33.4.6"</td>
+<td><code class="prettyprint lang-java">guava33_4_6</code></td>
+<td><code class="badcode">guava3346</code></td>
+</tr>
+</tbody></table>
+<p>*可接受，但不推荐。</p>
+<p class="note"><strong>注意：</strong>在英语中，有些单词是否加连字符是模棱两可的：例如 "nonempty" 和 "non-empty" 都是正确的，因此方法名
+<code class="prettyprint lang-java">checkNonempty</code> 和
+<code class="prettyprint lang-java">checkNonEmpty</code> 也同样都是正确的。</p>

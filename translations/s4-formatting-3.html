@@ -1,0 +1,171 @@
+<h3 id="s4.8-specific-constructs">4.8 特定语法结构</h3>
+<h4 id="s4.8.1-enum-classes">4.8.1 枚举类</h4>
+<p>在枚举常量后面的逗号之后，换行是可选的。此外，还允许添加额外的空行（通常只加一行）。下面是一种可行的写法：
+
+</p><pre class="prettyprint lang-java">private enum Answer {
+  YES {
+    @Override public String toString() {
+      return "yes";
+    }
+  },
+
+  NO,
+  MAYBE
+}
+</pre>
+<p>如果枚举类没有方法，且其常量也没有文档注释，则可以选择按照数组初始化器的方式进行格式化（请参见第 4.8.3.1 节关于<a href="#s4.8.3.1-array-initializers">数组初始化器</a>的规定）。</p>
+<pre class="prettyprint lang-java">private enum Suit { CLUBS, HEARTS, SPADES, DIAMONDS }
+</pre>
+<p>由于枚举类<em>本身就是类</em>，因此适用于类的所有其他格式化规则同样适用于枚举类。</p>
+<a id="localvariables"></a>
+<h4 id="s4.8.2-variable-declarations">4.8.2 变量声明</h4>
+<h5 id="s4.8.2.1-variables-per-declaration">4.8.2.1 每次声明只声明一个变量</h5>
+<p>每个变量声明（无论是字段还是局部变量）都只声明一个变量：不使用诸如 <code class="badcode">int a, b;</code> 这样的声明。</p>
+<p><strong>例外：</strong>在 <code class="prettyprint lang-java">for</code> 循环的头部中，允许声明多个变量。</p>
+<h5 id="s4.8.2.2-variables-limited-scope">4.8.2.2 在需要时声明</h5>
+<p>局部变量<strong>不</strong>应习惯性地声明在其所属代码块或类代码块结构的开头。相反，局部变量应声明在（在合理范围内）靠近其首次使用的位置，以尽量缩小其作用域。局部变量声明通常带有初始化器，或者在声明后立即进行初始化。</p>
+<h4 id="s4.8.3-arrays">4.8.3 数组</h4>
+<h5 id="s4.8.3.1-array-initializers">4.8.3.1 数组初始化器：可以是“类代码块”形式</h5>
+<p>任何数组初始化器都可以<em>选择</em>视同“类代码块结构”来进行格式化。例如，以下写法全部有效（<strong>并非</strong>详尽无遗的列表）：</p>
+<pre class="prettyprint lang-java">new int[] {           new int[] {
+  0, 1, 2, 3            0,
+}                       1,
+                        2,
+new int[] {             3,
+  0, 1,               }
+  2, 3
+}                     new int[]
+                          {0, 1, 2, 3}
+</pre>
+<h5 id="s4.8.3.2-array-declarations">4.8.3.2 禁止 C 风格的数组声明</h5>
+<p>方括号是<em>类型</em>的一部分，而不是变量名的一部分：应写成 <code class="prettyprint lang-java">String[] args</code>，而非 <code class="badcode">String args[]</code>。</p>
+<h4 id="s4.8.4-switch">4.8.4 Switch 语句与表达式</h4>
+<p>出于历史原因，Java 语言针对 <code class="prettyprint lang-java">switch</code> 有两种截然不同的语法，我们可以称之为<em>旧式（old-style）</em>和<em>新式（new-style）</em>。新式 switch 在 switch 标签后使用箭头（<code class="prettyprint lang-java">-&gt;</code>），而旧式 switch 使用冒号（<code class="prettyprint lang-java">:</code>）。
+
+</p><p class="terminology"><strong>术语说明：</strong>在 <em>switch 代码块</em>的花括号内部，要么是一个或多个 <em>switch 规则</em>（新式），要么是一个或多个<em>语句组</em>（旧式）。一条 <em>switch 规则</em>由一个 <em>switch 标签</em>（<code class="prettyprint lang-java">case ...</code> 或 <code class="prettyprint lang-java">default</code>）后跟 <code class="prettyprint lang-java">-&gt;</code> 以及一个表达式、代码块或 <code class="prettyprint lang-java">throw</code> 组成。一个语句组由一个或多个各自后跟冒号的 switch 标签，以及随后的一条或多条语句组成；对于<em>最后一个</em>语句组，后面也可以跟<em>零条</em>或多条语句。（这些定义与《Java 语言规范》<a href="https://docs.oracle.com/javase/specs/jls/se21/html/jls-14.html#jls-14.11">§14.11</a> 一致。）</p>
+<h5 id="s4.8.4.1-switch-indentation">4.8.4.1 缩进</h5>
+<p>与其他任何代码块一样，switch 代码块的内容缩进 +2 个空格。每个 switch 标签都以这 +2 的缩进开始。</p>
+<p>在新式 switch 中，只要一条 switch 规则在其他方面符合 Google 编码风格，就可以写在同一行上。（它不得超出列数限制，并且如果包含非空代码块，则在 <code class="prettyprint lang-java">{</code> 之后必须换行。）此处适用<a href="#s4.5-line-wrapping">第 4.5 节</a>的折行规则，包括续行的 +4 缩进。对于箭头后带有非空代码块的 switch 规则，适用与其他位置的代码块相同的规则：<code class="prettyprint lang-java">{</code> 和 <code class="prettyprint lang-java">}</code> 之间的行相对于 switch 标签所在行再缩进 +2。
+
+</p><pre class="prettyprint lang-java">switch (number) {
+  case 0, 1 -&gt; handleZeroOrOne();
+  case 2 -&gt;
+      handleTwoWithAnExtremelyLongMethodCallThatWouldNotFitOnTheSameLine();
+  default -&gt; {
+    logger.atInfo().log("Surprising number %s", number);
+    handleSurprisingNumber(number);
+  }
+}
+</pre>
+<p>在旧式 switch 中，每个 switch 标签的冒号后面都跟一个换行。语句组内的语句再缩进 +2。</p>
+<a id="fallthrough"></a>
+<h5 id="s4.8.4.2-switch-fall-through">4.8.4.2 贯穿（Fall-through）：必须注释说明</h5>
+<p>在旧式 switch 代码块内部，每个语句组要么异常终止（通过 <code class="prettyprint lang-java">break</code>、<code class="prettyprint lang-java">continue</code>、<code class="prettyprint lang-java">return</code> 或抛出异常），要么用注释标记，以表明执行将会或<em>可能会</em>继续进入下一个语句组。任何能表达贯穿（fall-through）含义的注释都足够（通常使用 <code class="prettyprint lang-java">// fall through</code>）。在 switch 代码块的最后一个语句组中不需要这种特殊注释。示例：</p>
+<pre class="prettyprint lang-java">switch (input) {
+  case 1:
+  case 2:
+    prepareOneOrTwo();
+  // fall through
+  case 3:
+    handleOneTwoOrThree();
+    break;
+  default:
+    handleLargeNumber(input);
+}
+</pre>
+<p>请注意，<code class="prettyprint lang-java">case 1:</code> 后面不需要注释，只需在语句组的末尾添加即可。</p>
+<p>新式 switch 中不存在贯穿。</p>
+<h5 id="s4.8.4.3-switch-default">4.8.4.3 穷尽性与 <code>default</code> 标签的存在</h5>
+<p>Java 语言要求 switch 表达式和许多种类的 switch 语句都是<em>穷尽的（exhaustive）</em>。这实际上意味着，被 switch 判断的每一个可能值都会被某个 switch 标签匹配到。如果 switch 带有 <code class="prettyprint lang-java">default</code> 标签，那么它是穷尽的；此外，例如当被 switch 判断的值是一个枚举，且该枚举的每个值都被某个 switch 标签匹配到时，它也是穷尽的。Google 编码风格要求<em>每一个</em> switch 都必须是穷尽的，即使语言本身对此并无要求。这可能需要添加一个 <code class="prettyprint lang-java">default</code> 标签，哪怕其中不包含任何代码。</p>
+<h5 id="s4.8.4.4-switch-expressions">4.8.4.4 Switch 表达式</h5>
+<p>Switch 表达式必须采用新式 switch：</p>
+<pre class="prettyprint lang-java">  return switch (list.size()) {
+    case 0 -&gt; "";
+    case 1 -&gt; list.getFirst();
+    default -&gt; String.join(", ", list);
+  };
+</pre>
+<a id="annotations"></a>
+<h4 id="s4.8.5-annotations">4.8.5 注解</h4>
+<h5 id="s4.8.5.1-type-use-annotation-style">4.8.5.1 类型使用注解</h5>
+<p>类型使用注解紧挨在被注解的类型之前。如果一个注解带有元注解 <code class="prettyprint lang-java">@Target(ElementType.TYPE_USE)</code>，那么它就是一个类型使用注解。示例：</p>
+<pre class="prettyprint lang-java">final @Nullable String name;
+
+public @Nullable Person getPersonByName(String name);
+</pre>
+<h5 id="s4.8.5.2-class-annotation-style">4.8.5.2 类、包和模块注解</h5>
+<p>作用于类、包或模块声明的注解紧跟在文档块之后，并且每个注解独占一行（即每行一个注解）。这些换行不属于折行（第 4.5 节，<a href="#s4.5-line-wrapping">折行</a>），因此缩进级别不会增加。示例：</p>
+<pre class="prettyprint lang-java">/// This is a class.
+@Deprecated
+@CheckReturnValue
+public final class Frozzler { ... }
+</pre>
+<pre class="prettyprint lang-java">/// This is a package.
+@Deprecated
+@CheckReturnValue
+package com.example.frozzler;
+</pre>
+<pre class="prettyprint lang-java">/// This is a module.
+@Deprecated
+@SuppressWarnings("CheckReturnValue") // TODO(b/123): Fix existing CRV violations.
+module com.example.frozzler { ... }
+</pre>
+<h5 id="s4.8.5.3-method-annotation-style">4.8.5.3 方法和构造器注解</h5>
+<p>作用于方法和构造器声明的注解规则与<a href="#s4.8.5.2-class-annotation-style">上一节</a>相同。示例：</p>
+<pre class="prettyprint lang-java">@Deprecated
+@Override
+public String getNameIfPresent() { ... }
+</pre>
+<p class="exception"><strong>例外：</strong>如果方法或构造器只有<em>单个</em><em>无参数</em>的注解，则它<em>可以</em>与签名的第一行出现在同一行，例如：</p>
+<pre class="prettyprint lang-java">@Override public int hashCode() { ... }
+</pre>
+<h5 id="s4.8.5.4-field-annotation-style">4.8.5.4 字段注解</h5>
+<p>作用于字段的注解同样紧跟在文档块之后，但在这种情况下，<em>多个</em>注解（可能带有参数）可以列在同一行上；例如：</p>
+<pre class="prettyprint lang-java">@Partial @Mock DataLoader loader;
+</pre>
+<h5 id="s4.8.5.5-local-parameter-annotation-style">4.8.5.5 参数和局部变量注解</h5>
+<p>对于参数或局部变量上的注解，没有特定的格式化规则（当然，该注解是类型使用注解的情况除外）。</p>
+<a id="comments"></a>
+<h4 id="s4.8.6-comments">4.8.6 注释</h4>
+<p>本节介绍<em>实现注释</em>。Javadoc 在第 7 节“<a href="#s7-javadoc">Javadoc</a>”中单独介绍。</p>
+<p>任何换行符之前都可以有任意空白以及随后的实现注释。这样的注释会使该行成为非空行。</p>
+<h5 id="s4.8.6.1-block-comment-style">4.8.6.1 块注释风格</h5>
+<p>块注释与周围代码的缩进级别相同。它们可以采用 <code class="prettyprint lang-java">/* ... */</code> 风格或 <code class="prettyprint lang-java">// ...</code> 风格。对于多行的 <code class="prettyprint lang-java">/* ... */</code> 注释，后续各行必须以 <code>*</code> 开头，并与前一行的 <code>*</code> 对齐。</p>
+<pre class="prettyprint lang-java">/*
+ * This is          // And so           /* Or you can
+ * okay.            // is this.          * even do this. */
+ */
+</pre>
+<p>不要将注释封闭在由星号或其他字符绘制的框中。</p>
+<p class="tip"><strong>提示：</strong>编写多行注释时，如果希望自动代码格式化工具在必要时重新折行（按段落风格），请使用 <code class="prettyprint lang-java">/* ... */</code> 风格。大多数格式化工具不会对 <code class="prettyprint lang-java">// ...</code> 风格的注释块重新折行。</p>
+<a id="todo"></a>
+<h5 id="s4.8.6.2-todo-comments">4.8.6.2 TODO 注释</h5>
+<div>
+<p>对于临时的、短期解决方案的，或者足够好但还不完美的代码，请使用 <code>TODO</code> 注释。</p>
+<p><code>TODO</code> 注释以全大写的单词 <code>TODO</code> 开头，后跟一个冒号和一个指向包含上下文信息的资源的链接（最好是 bug 引用）。优先使用 bug 引用，因为 bug 会被跟踪并且有后续评论。在这段上下文信息之后，接着写一个由连字符 <code>-</code> 引出的解释性字符串。</p>
+<p>这样做的目的是保持一致的 <code>TODO</code> 格式，以便通过搜索了解如何获取更多详细信息。</p>
+<pre class="good">// TODO: crbug.com/12345678 - Remove this after the 2047q4 compatibility window expires.
+</pre>
+<p>避免在添加 TODO 时将个人或团队作为上下文引用：</p>
+<pre class="bad">// TODO: @yourusername - File an issue and use a '*' for repetition.
+</pre>
+<p>如果你的 <code>TODO</code> 是“在未来某个日期做某事”的形式，请确保包含一个非常具体的日期（“在 2005 年 11 月前修复”）或一个非常具体的事件（“当所有客户端都能处理 XML 响应时移除此代码。”）。</p>
+</div>
+<a id="modifiers"></a>
+<h4 id="s4.8.7-modifiers">4.8.7 修饰符</h4>
+<p>类和成员的修饰符（如果存在）按《Java 语言规范》推荐的顺序出现：
+</p>
+<pre>public protected private abstract default static final sealed non-sealed
+  transient volatile synchronized native strictfp
+</pre>
+<p><code>requires</code> 模块指令上的修饰符（如果存在）按以下顺序出现：</p>
+<pre>transitive static</pre>
+<h4 id="s4.8.8-numeric-literals">4.8.8 数值字面量</h4>
+<p><code>long</code> 类型的整数字面量使用大写字母 <code>L</code> 作为后缀，绝不使用小写字母（以免与数字 <code>1</code> 混淆）。例如，使用 <code>3000000000L</code> 而不是 <code class="badcode">3000000000l</code>。</p>
+<h4 id="s4.8.9-text-blocks">4.8.9 文本块</h4>
+<p>文本块开头的 <code>"""</code> 总是位于新的一行。该行既可以遵循与其他语法结构相同的缩进规则，也可以完全不缩进（即从左页边距开始）。结尾的 <code>"""</code> 位于新的一行，且与开头的 <code>"""</code> 保持相同的缩进，并且在同一行后面可以继续跟其他代码。文本块中的每一行文本的缩进量至少要与开头和结尾的 <code>"""</code> 相同。（如果某一行缩进得更多，那么由该文本块定义的字符串字面量在该行的开头就会包含空格。）
+
+</p><p>文本块的内容可以超出<a href="#columnlimit">列数限制</a>。
+
+<a id="naming"></a>
+</p>

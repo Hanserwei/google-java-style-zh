@@ -1,0 +1,161 @@
+{
+  "source_url": "https://google.github.io/styleguide/javaguide.html",
+  "upstream_repository": "https://github.com/google/styleguide",
+  "upstream_commit": "e4d272eb151adfb5f382501265172a99c6a19671",
+  "upstream_updated_at": "2026-09-15T00:39:26Z",
+  "source_sha256": "c4f0d4ac711a339ee1366f83a63a7fd072648ce668435fea6294cc267fe5539f",
+  "license": "CC-BY-3.0",
+  "translation": {
+    "provider_base_url": "https://api.shuaiapi.com/v1",
+    "requested_model": "gemini-4-argon",
+    "translator": "Gemini",
+    "code_examples": "Preserved verbatim from upstream",
+    "returned_model": "gemini-4-argon-high",
+    "chunks": [
+      {
+        "id": "s1-introduction",
+        "model": "gemini-4-argon-high",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 535,
+          "completion_tokens": 612,
+          "total_tokens": 1147
+        },
+        "chars": 861,
+        "chunk": "s1-introduction",
+        "headings": 3,
+        "code_elements": 1,
+        "code_blocks": 0,
+        "translation_sha256": "93f8ea715da0039abf4c59bbaa548765c1dfcda326054270276f9ffb2c7a68a1"
+      },
+      {
+        "id": "s2-source-file-basics",
+        "model": "gemini-4-argon-high",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1423,
+          "completion_tokens": 987,
+          "total_tokens": 2410
+        },
+        "chars": 2557,
+        "chunk": "s2-source-file-basics",
+        "headings": 7,
+        "code_elements": 20,
+        "code_blocks": 0,
+        "translation_sha256": "50492fe25bd13c514271a668c473740d7129a0b3eb22828c971511fcddd0af3b"
+      },
+      {
+        "id": "s3-source-file-structure",
+        "model": "gemini-4-argon-high",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1795,
+          "completion_tokens": 1341,
+          "total_tokens": 3136
+        },
+        "chars": 2843,
+        "chunk": "s3-source-file-structure",
+        "headings": 15,
+        "code_elements": 10,
+        "code_blocks": 1,
+        "translation_sha256": "3fe2b2ae5b06312b91d6480e10ec1b3307f203a5cdeb460186d2c7a7d4385524"
+      },
+      {
+        "id": "s4-formatting-1",
+        "model": "gemini-4-argon-high",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 2995,
+          "completion_tokens": 2439,
+          "total_tokens": 5434
+        },
+        "chars": 5709,
+        "chunk": "s4-formatting-1",
+        "headings": 11,
+        "code_elements": 18,
+        "code_blocks": 4,
+        "translation_sha256": "1b5fe131ad363dae46d358c80935d1e2ae53ede532ff630e20357f7ee2385f8b"
+      },
+      {
+        "id": "s4-formatting-2",
+        "model": "gemini-4-argon-high",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 2087,
+          "completion_tokens": 1646,
+          "total_tokens": 3733
+        },
+        "chars": 4124,
+        "chunk": "s4-formatting-2",
+        "headings": 5,
+        "code_elements": 30,
+        "code_blocks": 1,
+        "translation_sha256": "a5d12b8cae4892263b496da726f29efcdf55863220732c54227b7b603ef1e554"
+      },
+      {
+        "id": "s4-formatting-3",
+        "model": "gemini-4-argon-high",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 4455,
+          "completion_tokens": 3939,
+          "total_tokens": 8394
+        },
+        "chars": 9431,
+        "chunk": "s4-formatting-3",
+        "headings": 25,
+        "code_elements": 46,
+        "code_blocks": 18,
+        "translation_sha256": "0411db7f84c153180f171ac2ecafe77eac949855ade9f341de1f48cc39136151"
+      },
+      {
+        "id": "s5-naming",
+        "model": "gemini-4-argon-high",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 3052,
+          "completion_tokens": 2638,
+          "total_tokens": 5690
+        },
+        "chars": 6748,
+        "chunk": "s5-naming",
+        "headings": 13,
+        "code_elements": 47,
+        "code_blocks": 2,
+        "translation_sha256": "ee86f75a256a33895c3e01f9583ad15e2bfca7e0abb76069c9708a08f5d82b5b"
+      },
+      {
+        "id": "s6-programming-practices",
+        "model": "gemini-4-argon-high",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 665,
+          "completion_tokens": 585,
+          "total_tokens": 1250
+        },
+        "chars": 1511,
+        "chunk": "s6-programming-practices",
+        "headings": 5,
+        "code_elements": 6,
+        "code_blocks": 2,
+        "translation_sha256": "cb847f984ab93536b36b37f258b78e468f234b22e8958f72b638993fe7ebfe63"
+      },
+      {
+        "id": "s7-javadoc",
+        "model": "gemini-4-argon-high",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1926,
+          "completion_tokens": 1469,
+          "total_tokens": 3395
+        },
+        "chars": 3543,
+        "chunk": "s7-javadoc",
+        "headings": 10,
+        "code_elements": 27,
+        "code_blocks": 3,
+        "translation_sha256": "3f7898a0c70412dec2fe26a08ede73bbb7115f873e1e298c565144ba43ea07a1"
+      }
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+<h2 id="s3-source-file-structure">3 源文件结构</h2>
+<div>
+<p>一个普通源文件<strong>按顺序</strong>包含以下部分：</p>
+<ol>
+<li>许可证或版权信息（如有）</li>
+<li>包声明</li>
+<li>导入</li>
+<li>有且仅有一个顶层类声明</li>
+</ol>
+</div>
+<p>每个存在的部分之间用<strong>有且仅有一个空行</strong>分隔。</p>
+<p><code>package-info.java</code> 文件与此相同，只是没有类声明。</p>
+<p><code>module-info.java</code> 文件不包含包声明，并将类声明替换为模块声明，但其余部分遵循相同的结构。</p>
+<h3 id="s3.1-copyright-statement">3.1 许可证或版权信息（如有）</h3>
+<p>如果文件中需要包含许可证或版权信息，则应当放在这里。</p>
+<a id="s3.2-package-statement"></a>
+<h3 id="s3.2-package-declaration">3.2 包声明</h3>
+<p>每个源文件都必须有包声明。不使用<a href="https://openjdk.org/jeps/512">紧凑源文件</a>。（此规则显然不适用于 <code>module-info.java</code> 文件，因为它们具有不同的语法，不包含包声明。）
+
+</p><p>包声明<strong>不折行</strong>。列数限制（第 4.4 节，<a href="#s4.4-column-limit">列数限制：100</a>）不适用于包声明。</p>
+<a id="imports"></a>
+<h3 id="s3.3-import-statements">3.3 导入</h3>
+<h4 id="s3.3.1-wildcard-imports">3.3.1 不使用通配符导入</h4>
+<p><strong>不使用</strong>静态或其他形式的<strong>通配符（“按需”）导入</strong>。</p>
+<h4 id="s3.3.1.1-module-imports">3.3.1.1 不使用模块导入</h4>
+<p><strong>不使用</strong><a href="https://docs.oracle.com/en/java/javase/25/language/module-import-declarations.html">模块导入</a>。</p>
+<p>示例：</p>
+<pre class="prettyprint lang-java">import module java.base;
+</pre>
+<h4 id="s3.3.2-import-line-wrapping">3.3.2 不折行</h4>
+<p>导入<strong>不折行</strong>。列数限制（第 4.4 节，<a href="#s4.4-column-limit">列数限制：100</a>）不适用于导入。</p>
+<h4 id="s3.3.3-import-ordering-and-spacing">3.3.3 顺序与空行</h4>
+<p>导入按如下顺序排列：</p>
+<ol>
+<li>所有静态导入归为一组。</li>
+<li>所有非静态导入归为一组。</li>
+</ol>
+<p>如果同时存在静态和非静态导入，则用单个空行将这两组分隔开。导入之间没有其他空行。</p>
+<p>在每个组内，导入的名称按 ASCII 排序顺序出现。（<strong>注意：</strong>这与导入<em>行</em>按 ASCII 排序顺序排列不同，因为 '.' 排在 ';' 之前。）</p>
+<h4 id="s3.3.4-import-class-not-static">3.3.4 不对类使用静态导入</h4>
+<p>不对静态嵌套类使用静态导入。它们应当通过普通导入来导入。</p>
+<h3 id="s3.4-class-declaration">3.4 类声明</h3>
+<a id="oneclassperfile"></a>
+<h4 id="s3.4.1-one-top-level-class">3.4.1 有且仅有一个顶层类声明</h4>
+<p>每个顶层类都位于其独立的源文件中。</p>
+<a id="s3.4.2-class-member-ordering"></a>
+<h4 id="s3.4.2-ordering-class-contents">3.4.2 类内容的顺序</h4>
+<p>你为类的成员和初始化块所选择的顺序会对易学性产生巨大影响。然而，对此并没有唯一正确的做法；不同的类可能会以不同的方式排列其内容。</p>
+<p>重要的是，每个类都应当使用<strong><em>某种</em>逻辑顺序</strong>，当被问及时，其维护者能够解释清楚。例如，新方法不能只是习惯性地添加到类的末尾，因为那样会产生“按添加日期的时间先后”顺序，而这并不是一种逻辑顺序。</p>
+<a id="overloads"></a>
+<h5 id="s3.4.2.1-overloads-never-split">3.4.2.1 重载：永不拆分</h5>
+<p>类中同名的方法应当集中出现在同一个连续的组中，中间不得插入其他成员。这同样适用于多个构造器。即使这些方法或构造器之间的修饰符（如 <code class="prettyprint lang-java">static</code> 或 <code class="prettyprint lang-java">private</code>）不同，此规则仍然适用。</p>
+<h3 id="s3.5-module-declaration">3.5 模块声明</h3>
+<h4 id="s3.5.1-ordering-module-directives">3.5.1 模块指令的顺序与空行</h4>
+<p>模块指令按如下顺序排列：</p>
+<ol>
+<li>所有 <code>requires</code> 指令集中在单个块中。</li>
+<li>所有 <code>exports</code> 指令集中在单个块中。</li>
+<li>所有 <code>opens</code> 指令集中在单个块中。</li>
+<li>所有 <code>uses</code> 指令集中在单个块中。</li>
+<li>所有 <code>provides</code> 指令集中在单个块中。</li>
+</ol>
+<p>每个存在的块之间用单个空行分隔。</p>

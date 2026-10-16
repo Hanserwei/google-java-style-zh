@@ -1,0 +1,47 @@
+<h2 id="s7-javadoc">7 Javadoc</h2>
+<h3 id="s7.1-javadoc-formatting">7.1 格式</h3>
+<h4 id="s7.1.1-javadoc-multi-line">7.1.1 通用形式</h4>
+<p>Markdown Javadoc 和传统 Javadoc 均可接受。Markdown Javadoc 如下所示：</p>
+<pre class="prettyprint lang-java">/// Javadoc text is written here,
+/// wrapped normally...
+public int method(String p1) { ... }
+</pre>
+<p>传统 Javadoc 块的<em>基本</em>格式如下所示：</p>
+<pre class="prettyprint lang-java">/**
+ * Multiple lines of Javadoc text are written here,
+ * wrapped normally...
+ */
+public int method(String p1) { ... }
+</pre>
+<p>……或者如下单行示例所示：</p>
+<pre class="prettyprint lang-java">/** An especially short bit of Javadoc. */
+</pre>
+<p>基本形式总是可接受的。当整个 Javadoc 块（包括注释标记）可以容纳在一行内时，可以改用单行形式。请注意，这仅在没有诸如 <code>@param</code> 之类的块标签时适用。</p>
+<h4 id="s7.1.2-javadoc-paragraphs">7.1.2 段落</h4>
+<p>使用传统 Javadoc 时，段落之间以及块标签组（如果存在）之前会出现一个空行——即只包含对齐的前导星号（<code>*</code>）的行。除第一段外，每个段落的第一个词前紧跟 <code>&lt;p&gt;</code>，且其后没有空格。其他块级元素的 HTML 标签（例如 <code>&lt;ul&gt;</code> 或 <code>&lt;table&gt;</code>）之前<em>不</em>加 <code>&lt;p&gt;</code>。</p>
+<p>使用 Markdown Javadoc 时，段落按照 Markdown 的常规方式分隔，即使用除前导 <code>///</code> 外其余为空白的行。不需要 <code>&lt;p&gt;</code>。</p>
+<a id="s7.1.3-javadoc-at-clauses"></a>
+<h4 id="s7.1.3-javadoc-block-tags">7.1.3 块标签</h4>
+<p>所使用的任何标准“块标签”均按 <code>@param</code>、<code>@return</code>、<code>@throws</code>、<code>@deprecated</code> 的顺序出现，并且这四种类型绝不能出现空描述。当块标签无法容纳在一行内时，对于传统 Javadoc，续行从 <code>@</code> 的位置缩进四个（或更多）空格；对于 Markdown Javadoc，则精确缩进两个空格。（在 Markdown 中，四个空格的缩进在某些上下文中会被解析为缩进代码块。）
+</p>
+<h3 id="s7.2-summary-fragment">7.2 摘要片段</h3>
+<p>每个 Javadoc 块都以简短的<strong>摘要片段</strong>开头。这个片段非常重要：它是某些上下文（如类和方法索引）中唯一显示的文本部分。</p>
+<p>这是一个片段——一个名词短语或动词短语，而不是一个完整的句子。它<strong>不</strong>以 <code class="badcode">A `Foo` is a...</code> 或 <code class="badcode">This method returns...</code> 开头，也不构成像 <code class="badcode">Save the record.</code> 这样完整的祈使句。但是，该片段的大小写和标点符号的使用方式与完整句子相同。</p>
+<p class="tip"><strong>提示：</strong>一个常见的错误是以 <code class="badcode prettyprint lang-java">/// @return the customer ID</code> 的形式编写简单的 Javadoc。这是不正确的，应当改为 <code class="prettyprint lang-java">/// Returns the customer ID.</code> 或 <code class="prettyprint lang-java">/// {@return the customer ID}</code>。</p>
+<a id="s7.3.3-javadoc-optional"></a>
+<h3 id="s7.3-javadoc-where-required">7.3 何处使用 Javadoc</h3>
+<p><em>至少</em>，必须为每个<em>可见</em>的类、成员或记录组件编写 Javadoc，下文指出的少数例外情况除外。如果顶层类是 <code class="prettyprint lang-java">public</code> 的，则它是可见的；如果成员是 <code class="prettyprint lang-java">public</code> 或 <code class="prettyprint lang-java">protected</code> 的且其所在类是可见的，则该成员是可见的；如果记录组件的所在记录是可见的，则该记录组件是可见的。
+
+</p><p>也可以包含额外的 Javadoc 内容，如第 7.3.4 节<a href="#s7.3.4-javadoc-non-required">非必需的 Javadoc</a> 中所述。</p>
+<h4 id="s7.3.1-javadoc-exception-self-explanatory">7.3.1 例外：不言自明的成员</h4>
+<p>对于“简单、显而易见”的成员和记录组件（例如 <code class="prettyprint lang-java">getFoo()</code> 方法），<em>如果</em>除了“the foo”之外<em>千真万确</em>没有任何其他值得说明的内容，则 Javadoc 是可选的。</p>
+<p class="note important"><strong>重要提示：</strong>引用此例外作为理由来省略典型读者可能需要了解的相关信息是不恰当的。例如，对于名为 <code class="prettyprint lang-java">canonicalName</code> 的记录组件，如果典型读者可能根本不知道术语“canonical name”是什么意思，则不要（以注释只会写 <code class="badcode">@param canonicalName the canonical name</code> 为理由）省略其文档！</p>
+<h4 id="s7.3.2-javadoc-exception-overrides">7.3.2 例外：重写</h4>
+<p>重写超类型方法的方法上并不总是有 Javadoc。
+
+</p>
+<h4 id="s7.3.4-javadoc-non-required">7.3.4 非必需的 Javadoc</h4>
+<p>其他类、成员和记录组件<em>根据需要或意愿</em>编写 Javadoc。
+
+</p><p>每当要用实现注释来定义类或成员的总体目的或行为时，该注释应当改写为 Javadoc（使用 <code>///</code> 或 <code>/**</code>）。</p>
+<p>非必需的 Javadoc 并不严格要求遵循第 7.1.1、7.1.2、7.1.3 和 7.2 节的格式规则，但当然建议遵循。</p>

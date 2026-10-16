@@ -1,0 +1,137 @@
+<h2 id="s4-formatting">4 格式化</h2>
+<p class="terminology"><strong>术语说明：</strong><em>类代码块结构</em>是指类、方法、构造函数或 switch 的主体。请注意，根据第 4.8.3.1 节关于<a href="#s4.8.3.1-array-initializers">数组初始化器</a>的规定，任何数组初始化器都<em>可以</em>选择性地被视为类代码块结构。</p>
+<a id="braces"></a>
+<h3 id="s4.1-braces">4.1 大括号</h3>
+<h4 id="s4.1.1-braces-always-used">4.1.1 可选大括号的使用</h4>
+<p>大括号用于
+<code class="prettyprint lang-java">if</code>、
+<code class="prettyprint lang-java">else</code>、
+<code class="prettyprint lang-java">for</code>、
+<code class="prettyprint lang-java">do</code> 和
+<code class="prettyprint lang-java">while</code> 语句，即使其主体为空或仅包含单条语句。</p>
+<p>其他可选大括号（例如 lambda 表达式中的大括号）仍然是可选的。</p>
+<h4 id="s4.1.2-blocks-k-r-style">4.1.2 非空代码块：K &amp; R 风格</h4>
+<p>对于<em>非空</em>代码块和类代码块结构，大括号遵循 Kernighan 和 Ritchie 风格：</p>
+<ul>
+<li>左大括号前不换行，下文详述的情况除外。</li>
+<li>左大括号后换行。</li>
+<li>右大括号前换行。</li>
+<li><em>仅当</em>右大括号结束一条语句，或结束方法、构造函数或<em>具名</em>类的主体时，右大括号后才换行。
+  例如，如果右大括号后面跟着 <code class="prettyprint lang-java">else</code> 或逗号，则右大括号后<em>不</em>换行。</li>
+</ul>
+<p>例外：在这些规则允许出现以分号（<code class="prettyprint lang-java">;</code>）结尾的单条语句的地方，可以出现语句代码块，且该代码块的左大括号前要换行。引入此类代码块通常是为了限制局部变量的作用域。</p>
+<p>示例：</p>
+<pre class="prettyprint lang-java">return () -&gt; {
+  while (condition()) {
+    method();
+  }
+};
+
+return new MyClass() {
+  @Override public void method() {
+    if (condition()) {
+      try {
+        something();
+      } catch (ProblemException e) {
+        recover();
+      }
+    } else if (otherCondition()) {
+      somethingElse();
+    } else {
+      lastThing();
+    }
+    {
+      int x = foo();
+      frob(x);
+    }
+  }
+};
+</pre>
+<p>第 4.8.1 节<a href="#s4.8.1-enum-classes">枚举类</a>中给出了枚举类的一些例外情况。</p>
+<a id="emptyblocks"></a>
+<h4 id="s4.1.3-braces-empty-blocks">4.1.3 空代码块：可以采用简洁写法</h4>
+<p>空代码块或类代码块结构可以采用 K &amp; R 风格（如<a href="#s4.1.2-blocks-k-r-style">第 4.1.2 节</a>所述）。或者，也可以在左大括号后立即闭合，中间不包含任何字符或换行（<code class="prettyprint lang-java">{}</code>），<strong>除非</strong>它是<em>多代码块语句</em>（直接包含多个代码块的语句：<code class="prettyprint lang-java">if/else</code> 或 <code class="prettyprint lang-java">try/catch/finally</code>）的一部分。</p>
+<p>示例：</p>
+<pre class="prettyprint lang-java">  // This is acceptable
+  void doNothing() {}
+
+  // This is equally acceptable
+  void doNothingElse() {
+  }
+</pre>
+<pre class="prettyprint lang-java badcode">  // This is not acceptable: No concise empty blocks in a multi-block statement
+  try {
+    doSomething();
+  } catch (Exception e) {}
+</pre>
+<h3 id="s4.2-block-indentation">4.2 代码块缩进：+2 个空格</h3>
+<p>每当开始一个新的代码块或类代码块结构时，缩进增加两个空格。当代码块结束时，缩进恢复到之前的缩进级别。缩进级别适用于整个代码块中的代码和注释。（参见第 4.1.2 节<a href="#s4.1.2-blocks-k-r-style">非空代码块：K &amp; R 风格</a>中的示例。）</p>
+<h3 id="s4.3-one-statement-per-line">4.3 每行一条语句</h3>
+<p>每条语句后都需换行。</p>
+<a id="columnlimit"></a>
+<h3 id="s4.4-column-limit">4.4 列数限制：100</h3>
+<p>Java 代码的列数限制为 100 个字符。“字符”是指任何 Unicode 码位。除下文指出的情况外，任何超出此限制的行都必须按第 4.5 节<a href="#s4.5-line-wrapping">折行</a>中的说明进行折行。
+</p>
+<p class="tip">每个 Unicode 码位都计为一个字符，即使其显示宽度更大或更小。例如，如果使用<a href="https://en.wikipedia.org/wiki/Halfwidth_and_fullwidth_forms">全角字符</a>，你可以选择比本规则严格要求的位置更早地折行。</p>
+<p><strong>例外情况：</strong></p>
+<ol>
+<li>不可能遵守列数限制的行（例如，Javadoc 中的长 URL，或长 JSNI 方法引用）。</li>
+<li><code class="prettyprint lang-java">package</code> 声明和导入语句（参见第 3.2 节<a href="#s3.2-package-statement">包声明</a>和第 3.3 节<a href="#s3.3-import-statements">导入</a>）。</li>
+<li><a href="#s4.8.9-text-blocks">文本块</a>的内容。</li>
+<li>注释中可能需要复制并粘贴到 shell 中的命令行。</li>
+<li>极少数情况下需要使用非常长的标识符，这类标识符允许超出列数限制。在这种情况下，周围代码的有效折行方式应与
+
+
+    <a href="https://github.com/google/google-java-format">google-java-format</a> 生成的结果一致。
+  </li>
+</ol>
+<h3 id="s4.5-line-wrapping">4.5 折行</h3>
+<p class="terminology"><strong>术语说明：</strong>当原本可能占据单行的代码被拆分为多行时，这种操作称为<em>折行</em>。</p>
+<p>并没有全面、确定性的公式可以准确指出在每种情况下应该<em>如何</em>折行。很多时候，同一段代码有多种有效的折行方式。</p>
+<p class="note"><strong>注意：</strong>虽然折行的典型原因是避免超出列数限制，但即使代码实际上并未超出列数限制，作者也<em>可以</em>自行决定将其折行。</p>
+<p class="tip"><strong>提示：</strong>提取方法或局部变量或许可以在无需折行的情况下解决问题。</p>
+<h4 id="s4.5.1-line-wrapping-where-to-break">4.5.1 在何处断开</h4>
+<p>折行的首要准则是：优先在<strong>更高的语法层级</strong>处断开。此外：</p>
+<ol>
+<li>如果在<em>非赋值</em>运算符处断开一行，那么断开位置在该符号<em>之前</em>。（请注意，这与 Google 风格在其他语言（如 C++ 和 JavaScript）中的做法不同。）
+    <ul>
+<li>这也适用于以下“类运算符”符号：
+        <ul>
+<li>点分隔符（<code class="prettyprint lang-java">.</code>）</li>
+<li>方法引用的两个冒号（<code class="prettyprint lang-java">::</code>）</li>
+<li>类型边界中的与符号（<code class="prettyprint lang-java">&lt;T extends Foo &amp; Bar&gt;</code>）</li>
+<li>catch 代码块中的竖线（<code class="prettyprint lang-java">catch (FooException | BarException e)</code>）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果在<em>赋值</em>运算符处断开一行，断开位置通常在该符号<em>之后</em>，但两种方式都是可以接受的。
+    <ul>
+<li>这也适用于增强型 <code class="prettyprint lang-java">for</code>（“foreach”）语句中的冒号。</li>
+</ul>
+</li>
+<li>方法名、构造函数名或记录类名与其后面的左圆括号（<code class="prettyprint lang-java">(</code>）保持在同一行。</li>
+<li>逗号（<code class="prettyprint lang-java">,</code>）与其前面的记号保持在同一行。</li>
+<li>绝不在紧邻 lambda 或 switch 规则中的箭头处断开一行，除非箭头后面的文本由单个不带大括号的表达式组成，此时可以在箭头后立即断开。示例：
+<pre class="prettyprint lang-java">MyLambda&lt;String, Long, Object&gt; lambda =
+    (String label, Long value, Object obj) -&gt; {
+      ...
+    };
+
+Predicate&lt;String&gt; predicate = str -&gt;
+    longExpressionInvolving(str);
+
+switch (x) {
+  case ColorPoint(Color color, Point(int x, int y)) -&gt;
+      handleColorPoint(color, x, y);
+  ...
+}
+</pre>
+</li>
+</ol>
+<p class="note"><strong>注意：</strong>折行的主要目标是让代码清晰，而<em>不一定</em>是让代码占据最少的行数。</p>
+<a id="indentation"></a>
+<h4 id="s4.5.2-line-wrapping-indent">4.5.2 续行缩进至少 +4 个空格</h4>
+<p>折行时，第一行之后的每一行（即每个<em>续行</em>）相对于原始行至少缩进 +4 个空格。</p>
+<p>当存在多个续行时，缩进可以根据需要超过 +4 个空格。通常，当且仅当两个续行以语法上平行的元素开头时，它们才使用相同的缩进级别。</p>
+<p>第 4.6.3 节关于<a href="#s4.6.3-horizontal-alignment">水平对齐</a>的内容阐述了不鼓励使用可变数量的空格来将某些记号与前面的行对齐的做法。</p>

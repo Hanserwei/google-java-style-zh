@@ -1,0 +1,27 @@
+<h2 id="s6-programming-practices">6 编程实践</h2>
+<h3 id="s6.1-override-annotation">6.1 <code>@Override</code>：始终使用</h3>
+<p>只要合法，就必须用 <code class="prettyprint lang-java">@Override</code> 注解来标记方法。这包括重写超类方法的类方法、实现接口方法的类方法、重新指定超接口方法的接口方法，以及为记录（record）组件显式声明的访问器方法。</p>
+<p class="exception"><strong>例外：</strong>当父方法被标记为 <code class="prettyprint lang-java">@Deprecated</code> 时，可以省略 <code class="prettyprint lang-java">@Override</code>。</p>
+<a id="caughtexceptions"></a>
+<h3 id="s6.2-caught-exceptions">6.2 捕获的异常：不忽略</h3>
+<p>对捕获的异常不做任何处理，这种做法极少是正确的。（典型的响应方式是记录日志，或者如果认为该异常“不可能发生”，则将其作为 <code class="prettyprint lang-java">AssertionError</code> 重新抛出。）</p>
+<p>如果确实适合在 catch 块中不采取任何操作，则必须在注释中说明这样做的合理原因。</p>
+<pre class="prettyprint lang-java">try {
+  int i = Integer.parseInt(response);
+  return handleNumericResponse(i);
+} catch (NumberFormatException _) {
+  // it's not numeric; that's fine, just continue
+}
+return handleTextResponse(response);
+</pre>
+<h3 id="s6.3-static-members">6.3 静态成员：使用类进行限定</h3>
+<p>当必须限定对静态类成员的引用时，应使用该类的名称进行限定，而不是使用该类类型的引用或表达式。</p>
+<pre class="prettyprint lang-java">Foo aFoo = ...;
+Foo.aStaticMethod(); // good
+<span class="badcode">aFoo.aStaticMethod();</span> // bad
+<span class="badcode">somethingThatYieldsAFoo().aStaticMethod();</span> // very bad
+</pre>
+<a id="finalizers"></a>
+<h3 id="s6.4-finalizers">6.4 终结方法（Finalizers）：不使用</h3>
+<p>不要重写 <code class="prettyprint lang-java">Object.finalize</code>。终结机制支持<a href="https://openjdk.org/jeps/421"><em>计划被移除</em></a>。</p>
+<a id="javadoc"></a>

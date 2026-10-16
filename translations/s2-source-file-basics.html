@@ -1,0 +1,48 @@
+<h2 id="s2-source-file-basics">2 源文件基础</h2>
+<h3 id="s2.1-file-name">2.1 文件名</h3>
+<p>对于包含类的源文件，文件名由区分大小写的顶层类名（<a href="#s3.4.1-one-top-level-class">有且仅有一个</a>）加上 <code>.java</code> 扩展名组成。</p>
+<h3 id="s2.2-file-encoding">2.2 文件编码：UTF-8</h3>
+<p>源文件以 <strong>UTF-8</strong> 编码。</p>
+<h3 id="s2.3-special-characters">2.3 特殊字符</h3>
+<h4 id="s2.3.1-whitespace-characters">2.3.1 空白字符</h4>
+<p>除了行终止符序列之外，<strong>ASCII 水平空格字符</strong>（<strong>0x20</strong>）是源文件中唯一允许出现在任何位置的空白字符。这意味着：</p>
+<ol>
+<li>在 <code>char</code> 字面量、字符串字面量以及文本块中，所有其他空白字符都必须进行转义。</li>
+<li>制表符<strong>不得</strong>用于缩进。</li>
+</ol>
+<h4 id="s2.3.2-special-escape-sequences">2.3.2 特殊转义序列</h4>
+<p>对于任何具有<a href="http://docs.oracle.com/javase/tutorial/java/data/characters.html">特殊转义序列</a>的字符（<code class="prettyprint lang-java">\b</code>、<code class="prettyprint lang-java">\t</code>、<code class="prettyprint lang-java">\n</code>、<code class="prettyprint lang-java">\f</code>、<code class="prettyprint lang-java">\r</code>、<code class="prettyprint lang-java">\s</code>、<code class="prettyprint lang-java">\"</code>、<code class="prettyprint lang-java">\'</code> 和 <code class="prettyprint lang-java">\\</code>），应使用该转义序列，而不是对应的八进制（例如 <code class="badcode">\012</code>）或 Unicode（例如 <code class="badcode">\u000a</code>）转义。</p>
+<h4 id="s2.3.3-non-ascii-characters">2.3.3 非 ASCII 字符</h4>
+<p>对于其余的非 ASCII 字符，可以使用实际的 Unicode 字符（例如 <code class="prettyprint lang-java">∞</code>），也可以使用等价的 Unicode 转义（例如 <code class="prettyprint lang-java">\u221e</code>）。如何选择仅取决于哪种方式能让代码<strong>更易于阅读和理解</strong>，但强烈不建议在字符串字面量和注释之外使用 Unicode 转义。</p>
+<p class="tip"><strong>提示：</strong>在使用 Unicode 转义的情况下，甚至有时在使用实际的 Unicode 字符时，附上解释性注释都会非常有帮助。</p>
+<p>示例：</p>
+<table>
+<tbody><tr>
+<th>示例</th>
+<th>说明</th>
+</tr>
+<tr>
+<td><code class="prettyprint lang-java">String unitAbbrev = "μs";</code></td>
+<td>最佳：即使没有注释也非常清晰。</td>
+</tr>
+<tr>
+<td><code class="prettyprint lang-java">String unitAbbrev = "\u03bcs"; // "μs"</code></td>
+<td>允许，但没有理由这样做。</td>
+</tr>
+<tr>
+<td><code class="prettyprint lang-java">String unitAbbrev = "\u03bcs";
+      // Greek letter mu, "s"</code></td>
+<td>允许，但笨拙且容易出错。</td>
+</tr>
+<tr>
+<td><code class="badcode">String unitAbbrev = "\u03bcs";</code></td>
+<td>糟糕：读者根本不知道这是什么。</td>
+</tr>
+<tr>
+<td><code class="prettyprint lang-java">return '\ufeff' + content;
+       // byte order mark</code></td>
+<td>良好：对不可打印字符使用转义，并在必要时添加注释。</td>
+</tr>
+</tbody></table>
+<p class="tip"><strong>提示：</strong>切勿仅仅因为担心某些程序可能无法正确处理非 ASCII 字符而降低代码的可读性。如果发生这种情况，说明那些程序<strong>存在问题</strong>，它们必须被<strong>修复</strong>。</p>
+<a id="filestructure"></a>

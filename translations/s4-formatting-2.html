@@ -1,0 +1,81 @@
+<h3 id="s4.6-whitespace">4.6 空白</h3>
+<h4 id="s4.6.1-vertical-whitespace">4.6.1 垂直空白（空行）</h4>
+<p>在以下情况中，总是会出现一个单独的空行：</p>
+<ol>
+<li>类的连续成员或初始化器<em>之间</em>：字段、构造器、方法、嵌套类、静态初始化器和实例初始化器。
+  <ul>
+<li><span class="exception"><strong>例外：</strong>两个连续字段之间的空行（只要它们之间没有其他代码）是可选的。这类空行可根据需要用于创建字段的<em>逻辑分组</em>。</span></li>
+<li><span class="exception"><strong>例外：</strong>枚举常量之间的空行在<a href="#s4.8.1-enum-classes">第 4.8.1 节</a>中讨论。</span></li>
+</ul>
+</li>
+<li>按本文档其他章节的要求（例如第 3 节<a href="#s3-source-file-structure">源文件结构</a>以及第 3.3 节 <a href="#s3.3-import-statements">Import 语句</a>）。</li>
+</ol>
+<p>只要能提高可读性，单个空行也可以出现在任何地方，例如在语句之间使用空行将代码组织为逻辑子小节。在类的第一个成员或初始化器之前，或者最后一个成员或初始化器之后，既不鼓励也不反对使用空行。
+
+</p><p>允许出现<em>多个</em>连续空行，但绝不要求（也不鼓励）这样做。</p>
+<h4 id="s4.6.2-horizontal-whitespace">4.6.2 水平空白</h4>
+<p>除了语言或其他风格规则所要求的地方，并且除了字面量、注释和 Javadoc 内部之外，单个 ASCII 空格<strong>仅</strong>出现在以下位置。</p>
+<ol>
+<li>将任何关键字（如
+  <code class="prettyprint lang-java">if</code>、
+  <code class="prettyprint lang-java">for</code> 或
+  <code class="prettyprint lang-java">catch</code>）与同一行中紧随其后的左圆括号（<code class="prettyprint lang-java">(</code>）分隔开</li>
+<li>将任何关键字（如
+  <code class="prettyprint lang-java">else</code> 或
+  <code class="prettyprint lang-java">catch</code>）与同一行中位于其前面的右花括号（<code class="prettyprint lang-java">}</code>）分隔开</li>
+<li>在任何左花括号（<code class="prettyprint lang-java">{</code>）之前，但有两个例外：
+  <ul>
+<li><code class="prettyprint lang-java">@SomeAnnotation({a, b})</code>（不使用空格）</li>
+<li><code class="prettyprint lang-java">String[][] x = {{"foo"}};</code>（根据下面的第 10 项，<code class="prettyprint lang-java">{{</code> 之间不需要空格）</li>
+</ul>
+</li>
+<li>在任何二元或三元运算符的两侧。这也适用于以下“类运算符”符号：
+  <ul>
+<li>分隔多个类型边界的与号（&amp;）：
+    <code class="prettyprint lang-java">&lt;T extends Foo &amp; Bar&gt;</code></li>
+<li>处理多个异常的 catch 代码块中的竖线（|）：
+    <code class="prettyprint lang-java">catch (FooException | BarException e)</code></li>
+<li>增强型
+    <code class="prettyprint lang-java">for</code>（“foreach”）语句中的冒号（<code class="prettyprint lang-java">:</code>）</li>
+<li>lambda 表达式中的箭头：
+    <code class="prettyprint lang-java">(String str) -&gt; str.length()</code><br/>
+    或 switch 规则中的箭头：
+    <code class="prettyprint lang-java">case "FOO" -&gt; bar();</code></li>
+</ul>
+    但不包括
+
+  <ul>
+<li>方法引用中的双冒号（<code class="prettyprint lang-java">::</code>），其写法如 <code class="prettyprint lang-java">Object::toString</code></li>
+<li>点分隔符（<code class="prettyprint lang-java">.</code>），其写法如
+    <code class="prettyprint lang-java">object.toString()</code></li>
+</ul>
+</li>
+<li>在 <code class="prettyprint lang-java">,:;</code> 或强制类型转换的右圆括号（<code class="prettyprint lang-java">)</code>）之后</li>
+<li>在任何内容与开启注释的双斜杠（<code class="prettyprint lang-java">//</code>）之间。此处允许多个空格。</li>
+<li>在开启注释的双斜杠（<code class="prettyprint lang-java">//</code>）与注释文本之间。此处允许多个空格。</li>
+<li>在声明中的类型与标识符之间：
+  <code class="prettyprint lang-java">List&lt;String&gt; list</code></li>
+<li>数组初始化器的两个花括号内侧紧邻处的空格是<em>可选的</em>
+  <ul>
+<li><code class="prettyprint lang-java">new int[] {5, 6}</code> 和
+    <code class="prettyprint lang-java">new int[] { 5, 6 }</code> 都是合法的</li>
+</ul>
+</li>
+<li>在类型注解与 <code class="prettyprint lang-java">[]</code> 或
+  <code class="prettyprint lang-java">...</code> 之间。</li>
+</ol>
+<p>本规则绝不应解释为要求或禁止在行首或行尾添加额外空格；它只针对行<em>内部</em>的空格。</p>
+<h4 id="s4.6.3-horizontal-alignment">4.6.3 水平对齐：绝不要求</h4>
+<p class="terminology"><strong>术语说明：</strong><em>水平对齐</em>是指在代码中添加数量不等的额外空格，目的是使某些标记直接出现在前几行某些其他标记的正下方。</p>
+<p>这种做法是允许的，但在 Google 风格中<strong>绝不要求</strong>这样做。甚至在已经使用了水平对齐的地方，也不要求<em>维持</em>这种对齐。</p>
+<p>下面是一个先不使用对齐、然后使用对齐的示例：</p>
+<pre class="prettyprint lang-java">private int x; // this is fine
+private Color color; // this too
+
+private int   x;      // permitted, but future edits
+private Color color;  // may leave it unaligned
+</pre>
+<p class="tip"><strong>提示：</strong>对齐有助于提高可读性，但单纯为了保持对齐而对齐会给未来埋下隐患。例如，考虑一个只涉及一行的修改。如果该修改破坏了原有的对齐，重要的是**不要**仅仅为了重新对齐而在邻近行引入额外的更改。在原本不受影响的行上引入格式更改会破坏版本历史记录、拖慢审阅者的速度，并加剧合并冲突。这些实际考量优先于对齐。</p>
+<a id="parentheses"></a>
+<h3 id="s4.7-grouping-parentheses">4.7 分组圆括号：推荐使用</h3>
+<p>只有当作者和审阅者一致认为去掉可选的分组圆括号后代码绝不会被误解，并且加上它们也不会让代码更易读时，才可以省略它们。假设每位读者都记住了整张 Java 运算符优先级表是<em>不</em>合理的。</p>
