@@ -1,0 +1,38 @@
+{
+  "name": "Prism",
+  "version": "1.30.0",
+  "project": "https://prismjs.com/",
+  "license": "MIT",
+  "files": [
+    {
+      "file": "prism-core.min.js",
+      "bytes": 7461,
+      "sha256": "6caad316dd991f24f8004e0b9c19c055cb5829ff65e973fbee406f96d81b8e7e",
+      "url": "https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-core.min.js"
+    },
+    {
+      "file": "prism-clike.min.js",
+      "bytes": 708,
+      "sha256": "c76ba4e240932bdc75546be30e550f5ba5e13815ff71511c76e9e27ac3072444",
+      "url": "https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-clike.min.js"
+    },
+    {
+      "file": "prism-java.min.js",
+      "bytes": 2770,
+      "sha256": "4c2dc81dfc9efa51e38a7573938065288c63c64850f01a32f8a7b20a3e24c5a7",
+      "url": "https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-java.min.js"
+    },
+    {
+      "file": "prism-keep-markup.min.js",
+      "bytes": 1481,
+      "sha256": "5d01acaec2752a94119c27bf7572512f7e31d0403c03798fca648ce58e916b26",
+      "url": "https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/keep-markup/prism-keep-markup.min.js"
+    },
+    {
+      "file": "LICENSE",
+      "bytes": 1066,
+      "sha256": "2b947f0901a7ffcf08a89957da9783c0e9c6e72cb6ce8e959f501ab5409e4d2b",
+      "url": "https://cdn.jsdelivr.net/npm/prismjs@1.30.0/LICENSE"
+    }
+  ]
+}

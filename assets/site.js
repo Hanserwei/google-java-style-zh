@@ -273,6 +273,16 @@
     });
     wrapper.append(button);
   });
+
+  if (window.Prism?.languages.java) {
+    guide.querySelectorAll('pre, code.prettyprint').forEach((code) => {
+      if (code.tagName === 'CODE' && code.closest('pre')) return;
+      if (code.tagName === 'PRE') Prism.util.setLanguage(code, 'java');
+      if (Prism.util.getLanguage(code) !== 'java') return;
+      Prism.highlightElement(code);
+    });
+  }
+
   guide.querySelectorAll('table').forEach((table, index) => {
     const wrapper = make('div', 'table-scroll');
     wrapper.tabIndex = 0;

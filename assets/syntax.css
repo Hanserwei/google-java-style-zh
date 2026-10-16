@@ -1,0 +1,37 @@
+.guide {
+  --syntax-keyword: #7440a3;
+  --syntax-string: #14634c;
+  --syntax-comment: #65716b;
+  --syntax-function: #245a99;
+  --syntax-type: #8a4c0d;
+  --syntax-number: #8b3e6e;
+  --syntax-punctuation: #526572;
+}
+
+:root[data-theme="dark"] .guide {
+  --syntax-keyword: #d9a1f2;
+  --syntax-string: #a9d3a1;
+  --syntax-comment: #9caeb5;
+  --syntax-function: #94c4f5;
+  --syntax-type: #f3c37a;
+  --syntax-number: #efb6d2;
+  --syntax-punctuation: #b5c7ce;
+}
+
+.guide .token.keyword { color: var(--syntax-keyword); }
+.guide .token.string,
+.guide .token.char { color: var(--syntax-string); }
+.guide .token.comment { color: var(--syntax-comment); }
+.guide .token.function { color: var(--syntax-function); }
+.guide .token.class-name,
+.guide .token.annotation,
+.guide .token.namespace { color: var(--syntax-type); }
+.guide .token.number,
+.guide .token.boolean,
+.guide .token.constant { color: var(--syntax-number); }
+.guide .token.operator,
+.guide .token.punctuation { color: var(--syntax-punctuation); }
+
+@media print {
+  .guide .token { color: inherit; }
+}
